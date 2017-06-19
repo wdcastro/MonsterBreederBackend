@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ActionController {
 	
-	HashMap<String, Monster> usermap = new HashMap<String, Monster>();
+	HashMap<String, SaveData> usermap = new HashMap<String, SaveData>();
 
 	@CrossOrigin
 	@RequestMapping(value = "/action", method = RequestMethod.POST)
@@ -56,15 +56,15 @@ public class ActionController {
 		} else {
 			logincode = 3;
 		}
-		LoginResult response = new LoginResult(userdata.userID, logincode, userdata.authKey);
+		LoginResult response = new LoginResult(userdata, logincode);
 		return new ResponseEntity<LoginResult>(response, HttpStatus.OK);
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value = "/load", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-	public ResponseEntity<Monster> load(@RequestBody UserData userdata){
+	public ResponseEntity<SaveData> load(@RequestBody UserData userdata){
 		System.out.println("Loading monster: UserID: "+userdata.userID+", AuthKey: "+userdata.authKey);
-		return new ResponseEntity<Monster>(usermap.get(userdata.userID), HttpStatus.OK);
+		return new ResponseEntity<SaveData>(usermap.get(userdata.userID), HttpStatus.OK);
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
@@ -72,7 +72,7 @@ public class ActionController {
 	public ResponseEntity<SaveData> load(@RequestBody SaveData savedata){
 		System.out.println("Save data");
 		savedata.exists();
-		usermap.put(savedata.userdata.userID, savedata.monster);
+		usermap.put(savedata.userdata.userID, savedata);
 		return new ResponseEntity<SaveData>(savedata, HttpStatus.OK);
 	}
 
@@ -85,12 +85,5 @@ public class ActionController {
 		System.out.println("Timestamp: "+ response.timestamp);
 		return new ResponseEntity<TimeData>(response, HttpStatus.OK);
 	}
-	
-	@CrossOrigin(origins = "http://localhost:4200") //combine with save?
-	@RequestMapping(value = "/monster", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-	public ResponseEntity<Monster> registerMonster(@RequestBody Monster monster){
-		System.out.println("New monster registered by "+monster.owner);
-		usermap.put(monster.owner, monster);
-		return new ResponseEntity<Monster>(monster, HttpStatus.OK);
-	}
+
 }

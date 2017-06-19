@@ -1,27 +1,31 @@
 package com.empygames;
 
 public class LoginResult {
-	String userID;
-	int loginCode;
-	long authKey;
+	UserData userdata;
+	int logincode;
 	
-	public LoginResult(String userID, int loginCode, long authKey){
-		this.userID = userID;
-		this.loginCode = loginCode;
-		this.authKey = authKey;
+	public LoginResult(UserData userdata, int logincode){
+		this.userdata = userdata;
+		this.logincode = logincode;
 	}
 
-	public String getUserID() {
-		return userID;
+	public UserData getUserdata() {
+		return userdata;
 	}
 
-	public int getLoginCode() {
-		return loginCode;
+	public void setUserdata(UserData userdata) {
+		this.userdata = userdata;
 	}
 
-	public long getAuthKey() {
-		return authKey;
+	public int getLogincode() {
+		return logincode;
 	}
+
+	public void setLogincode(int logincode) {
+		this.logincode = logincode;
+	}
+
+	
 	
 	
 }

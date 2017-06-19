@@ -2,10 +2,17 @@ package com.empygames;
 
 public class SaveData {
 	UserData userdata;
+	PlayerData playerdata;
 	Monster monster;
 	
 	public SaveData(){
 		
+	}
+
+	public SaveData(UserData userdata, PlayerData playerdata, Monster monster) {
+		this.userdata = userdata;
+		this.playerdata = playerdata;
+		this.monster = monster;
 	}
 
 	public UserData getUserdata() {
@@ -25,6 +32,13 @@ public class SaveData {
 		this.monster = monster;
 	}
 
+	public PlayerData getPlayerdata() {
+		return playerdata;
+	}
+
+	public void setPlayerdata(PlayerData playerdata) {
+		this.playerdata = playerdata;
+	}
 
 	public void exists(){
 		if(userdata == null){
